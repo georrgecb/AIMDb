@@ -1,13 +1,11 @@
 import React from "react";
 import {
   Card,
-  CardAction,
   CardActionArea,
   CardContent,
   CardMedia,
-  Button,
   Typography,
-  CardActions,
+  Chip,
 } from "@material-ui/core";
 import moment from "moment";
 import useStyles from "./style.js";
@@ -19,6 +17,7 @@ const MoviesCard = ({
 }) => {
   const classes = useStyles();
   const baseImgUrl = "https://image.tmdb.org/t/p/w500";
+  const movieDate = new Date(release_date);
 
   return (
     <Card
@@ -31,19 +30,34 @@ const MoviesCard = ({
           image={`${baseImgUrl}${poster_path}`}
         />
         <div className={classes.details}>
-          <Typography variant="body2" color="textSecondary" component="h2">
-            Released {moment(release_date).fromNow()}.
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="h2"
+            className={classes.textDetails}
+          >
+            <Chip label={`${moment(movieDate).fromNow()}`} variant="outlined" />
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="h2">
-            Rating: {vote_average}
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="h2"
+            className={classes.textDetails}
+          >
+            <Chip label={`Rating: ${vote_average}`} color="primary" />
           </Typography>
         </div>
-        <Typography className={classes.title} gutterBottom variant="h5">
+        <Typography className={classes.title} variant="h5">
           {title}
         </Typography>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {overview?.length > 150 ? `${overview.slice(0, 150)}...` : overview}
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            className={classes.overview}
+          >
+            {overview?.length > 100 ? `${overview.slice(0, 100)}...` : overview}
           </Typography>
         </CardContent>
       </CardActionArea>
