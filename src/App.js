@@ -13,8 +13,6 @@ import bgCinema from "./images/bg-cinema.jpg";
 import LoadingPage from "./components/LoadingPage";
 import { setActivePage, selectActivePage } from "./slices/navSlice";
 
-const alanKEY = process.env.REACT_APP_AI_KEY;
-
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState({});
@@ -30,7 +28,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       alanBtn({
-        key: alanKEY,
+        key: process.env.REACT_APP_AI_KEY,
         onCommand: ({ command, movies }) => {
           if (command === "wakeUp") {
             dispatch(setActivePage(1));
