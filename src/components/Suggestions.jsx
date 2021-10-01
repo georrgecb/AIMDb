@@ -9,7 +9,7 @@ import useStyles from "./style.js";
 const infoCards = [
   {
     color: "#744A9A",
-    title: "Most popular movies",
+    title: "Popular movies",
     info: <LocalActivityIcon fontSize="large" />,
     text: "Show me the most popular movies.",
   },
@@ -17,19 +17,25 @@ const infoCards = [
     color: "#47277C",
     title: "New releases",
     info: <NewReleasesIcon fontSize="large" />,
-    text: "Which movies are playing in theaters now.",
+    text: "Which movies are playing in theaters right now?",
   },
   {
     color: "#231D4D",
-    title: "Search a movie",
+    title: "Find a movie",
     info: <LocalMoviesIcon fontSize="large" />,
     text: "Tell me more about the movie The Big Lebowsky.",
   },
   {
     color: "#8386D9",
-    title: "Ask me something",
+    title: "Ask me",
     info: <AssistantIcon fontSize="large" />,
-    text: "How was your day? / What's your favorite movie? / Tell me a joke.",
+    text: (
+      <div>
+        How was your day?
+        <br />
+        What's your favorite movie?
+      </div>
+    ),
   },
 ];
 
@@ -64,7 +70,9 @@ const Suggestions = () => {
           >
             <div
               className={classes.suggestionsDiv}
-              style={{ background: infoCard.color }}
+              style={{
+                background: infoCard.color,
+              }}
             >
               <Typography variant="h5">{infoCard.title}</Typography>
 

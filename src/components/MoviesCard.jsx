@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, createRef } from "react";
 import {
   Card,
   CardActionArea,
@@ -18,13 +18,32 @@ const MoviesCard = ({
   const classes = useStyles();
   const baseImgUrl = "https://image.tmdb.org/t/p/w500";
   const movieDate = new Date(release_date);
+  const [elRefs, setElRefs] = useState([]);
+  const scrollToRef = (ref) => window.scroll(0, ref.current.offsetTop - 50);
+
+  useEffect(() => {
+    window.scroll(0, 0);
+
+    setElRefs((refs) =>
+      Array(12)
+        .fill()
+        .map((_, j) => refs[j] || createRef())
+    );
+  }, []);
+
+  useEffect(() => {
+    if (index === activeMovie && elRefs[activeMovie]) {
+      scrollToRef(elRefs[activeMovie]);
+    }
+  }, [index, activeMovie, elRefs]);
 
   return (
     <Card
+      ref={elRefs[index]}
       key={index}
       className={activeMovie === index ? classes.activeCard : classes.mainCard}
     >
-      <CardActionArea target="_blank">
+      <CardActionArea style={{ cursor: "crosshair" }}>
         <CardMedia
           className={classes.media}
           image={`${baseImgUrl}${poster_path}`}
@@ -36,7 +55,7 @@ const MoviesCard = ({
             component="h2"
             className={classes.textDetails}
           >
-            <Chip label={`${moment(movieDate).fromNow()}`} variant="outlined" />
+            <Chip label={`${moment(movieDate).fromNow()}`} />
           </Typography>
           <Typography
             variant="body2"
@@ -44,7 +63,7 @@ const MoviesCard = ({
             component="h2"
             className={classes.textDetails}
           >
-            <Chip label={`Rating: ${vote_average}`} color="primary" />
+            <Chip label={`Rating: ${vote_average}`} />
           </Typography>
         </div>
         <Typography className={classes.title} variant="h5">
@@ -57,7 +76,7 @@ const MoviesCard = ({
             component="p"
             className={classes.overview}
           >
-            {overview?.length > 100 ? `${overview.slice(0, 100)}...` : overview}
+            {overview?.length > 90 ? `${overview.slice(0, 90)}...` : overview}
           </Typography>
         </CardContent>
       </CardActionArea>

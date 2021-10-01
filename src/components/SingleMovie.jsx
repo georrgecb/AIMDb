@@ -1,159 +1,202 @@
 import React from "react";
-import { Box, Grid, Paper, Typography } from "@material-ui/core";
-import moment from "moment";
+import { Box, Grid, Paper, Typography, Button, Grow } from "@material-ui/core";
 import useStyles from "./style.js";
+import OpenInNew from "@material-ui/icons/OpenInNew";
+import bgSingle from "../images/Mohaka.svg";
 
 const SingleMovie = ({
   movie: {
     overview,
     title,
     release_date,
-    backdrop_path,
+    tagline,
     poster_path,
     vote_average,
-    vote_count,
     genres,
     budget,
+    imdb_id,
+    runtime,
+    spoken_languages,
   },
-  index,
 }) => {
   const classes = useStyles();
   const baseImgUrl = "https://image.tmdb.org/t/p/w500";
   const movieDate = new Date(release_date);
 
   return (
-    <Box>
-      <Paper
-        variant="outlined"
-        elevation={24}
-        style={{
-          padding: "2rem",
-          margin: "2rem 3rem",
-        }}
-      >
-        <Grid container justifyContent="space-between" spacing={6}>
-          <Grid item xs={12} md={6} lg={8}>
-            <Typography
-              style={{
-                marginBottom: "1rem",
-                fontSize: "3rem",
-                fontWeight: 800,
-                color: "#C04249",
-              }}
-            >
-              {title}
-            </Typography>
-            <Typography style={{ fontSize: "1.3rem", fontWeight: 500 }}>
-              {overview}
-            </Typography>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "1rem",
-                justifyContent: "flex-start",
-                marginTop: "2rem",
-              }}
-            >
+    <Grow in>
+      <Box style={{ height: "90vh", overflow: "scroll" }}>
+        <Paper
+          variant="outlined"
+          elevation={10}
+          style={{
+            padding: "2rem",
+            margin: "1rem 3rem",
+            background: `url(${bgSingle})`,
+            backgroundPosition: "center",
+          }}
+        >
+          <Grid
+            container
+            justifyContent="space-between"
+            spacing={6}
+            style={{
+              backgroundColor: "white",
+              borderRadius: "0.3rem",
+              padding: "0.5rem",
+            }}
+          >
+            <Grid item xs={12} md={6} lg={8}>
               <Typography
                 style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 500,
-                  borderRight: "2px solid #C04249",
-                  padding: "0 0.5rem 0 0",
+                  fontSize: "2.5rem",
+                  fontWeight: 900,
+                  color: "#C04249",
                 }}
               >
-                Rating:{" "}
-                <span
-                  style={{
-                    textDecoration: "underline #C04249",
-                    fontWeight: "bolder",
-                  }}
-                >
-                  {vote_average}
-                </span>{" "}
-                from {vote_count} votes
+                {title}
               </Typography>
               <Typography
                 style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 500,
-                  borderRight: "2px solid #C04249",
-                  paddingRight: "0.5rem",
+                  fontSize: "1.5rem",
+                  fontWeight: 700,
+                  marginBottom: "2rem",
                 }}
               >
-                Released in{" "}
-                <span
-                  style={{
-                    textDecoration: "underline #C04249",
-                    fontWeight: "bolder",
-                  }}
-                >
-                  {movieDate.getFullYear()}
-                </span>
+                <i>{tagline ? `"${tagline}"` : ""}</i>
               </Typography>
-              <Typography
+              <Typography style={{ fontSize: "1.2rem", fontWeight: 600 }}>
+                {overview}
+              </Typography>
+              <div
                 style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 500,
-                  //   borderRight: "2px solid #C04249",
-                  paddingRight: "0.5rem",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "1rem",
+                  justifyContent: "flex-start",
+                  marginTop: "2rem",
                 }}
               >
-                Budget of{" "}
-                <span
-                  style={{
-                    textDecoration: "underline #C04249",
-                    fontWeight: "bolder",
-                  }}
-                >
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(budget)}
-                </span>
-              </Typography>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                marginTop: "2rem",
-              }}
-            >
-              <Typography style={{ fontSize: "1rem" }}> Genres:</Typography>
-
-              {genres.map((genre, index) => (
-                <Typography
-                  key={index}
-                  style={{
-                    fontSize: "0.9rem",
-                    fontWeight: 500,
-                    border: "2px solid grey",
-                    borderRadius: "2rem",
-                    padding: "0.3rem",
-                    margin: "0.5rem",
-                  }}
-                >
-                  {genre.name}
+                <Typography className={classes.movieStats}>
+                  Runtime:{" "}
+                  <span
+                    style={{
+                      textDecoration: "underline #C04249",
+                      fontWeight: "bolder",
+                    }}
+                  >
+                    {runtime}
+                  </span>{" "}
+                  min.
                 </Typography>
-              ))}
-            </div>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <img
-              src={`${baseImgUrl}${poster_path}`}
+                <Typography className={classes.movieStats}>
+                  Released in{" "}
+                  <span
+                    style={{
+                      textDecoration: "underline #C04249",
+                      fontWeight: "bolder",
+                    }}
+                  >
+                    {movieDate.getFullYear()}
+                  </span>
+                </Typography>
+                {budget ? (
+                  <Typography className={classes.movieStats}>
+                    Budget of{" "}
+                    <span
+                      style={{
+                        textDecoration: "underline #C04249",
+                        fontWeight: "bolder",
+                      }}
+                    >
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(budget)}
+                    </span>
+                  </Typography>
+                ) : null}
+                <Typography
+                  className={classes.movieStats}
+                  style={{ border: "none" }}
+                >
+                  {spoken_languages[0]?.english_name}
+                </Typography>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                {/* <Typography style={{ fontWeight: 600, fontSize: "1.2rem" }}>
+                  {" "}
+                  Genres:
+                </Typography> */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+                  {genres.map((genre, index) => (
+                    <Typography key={index} className={classes.genre}>
+                      {genre.name}
+                    </Typography>
+                  ))}
+                </div>
+              </div>
+
+              <Typography
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  marginTop: "4rem",
+                }}
+              >
+                {" "}
+                <a
+                  href={`https://www.imdb.com/title/${imdb_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
+                >
+                  IMDb Page{" "}
+                  <OpenInNew fontSize="small" style={{ color: "#C04249" }} />
+                </a>
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              lg={4}
               style={{
-                height: "30rem",
-                border: "0.2rem solid white",
-                borderRadius: "0.4rem",
+                position: "relative",
               }}
-            />
+            >
+              <div style={{ display: "flex", justifyContent: "end" }}>
+                <img
+                  src={`${baseImgUrl}${poster_path}`}
+                  alt={`${title} poster`}
+                  style={{
+                    height: "30rem",
+                    borderRadius: "0.5rem",
+                    boxShadow: "0rem 0rem 2rem gray",
+                  }}
+                />
+              </div>
+
+              <Button variant="contained" size="small" className={classes.vote}>
+                <Typography style={{ fontSize: "1rem", fontWeight: 600 }}>
+                  <span style={{ fontSize: "1.2rem" }}>{vote_average}</span>/10
+                </Typography>
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+        </Paper>
+      </Box>
+    </Grow>
   );
 };
 

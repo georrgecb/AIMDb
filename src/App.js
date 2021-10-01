@@ -4,21 +4,23 @@ import React, { useState, useEffect } from "react";
 import MoviesCards from "./components/MoviesCards";
 import Suggestions from "./components/Suggestions";
 import SingleMovie from "./components/SingleMovie";
-import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
+import NavBar from "./components/NavBar";
+import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { Fade } from "@material-ui/core";
 import bgCinema from "./images/bg-cinema.jpg";
 import LoadingPage from "./components/LoadingPage";
+import { setActivePage, selectActivePage } from "./slices/navSlice";
 
-const alanKEY =
-  "d3eac01f6bdc20663ae3f4b6b9f66c6f2e956eca572e1d8b807a3e2338fdd0dc/stage";
+const alanKEY = process.env.REACT_APP_AI_KEY;
 
-function App() {
+const App = () => {
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState({});
-  const [activePage, setActivePage] = useState(-1);
   const [activeMovie, setActiveMovie] = useState(-1);
+  const dispatch = useDispatch();
+  const activePage = useSelector(selectActivePage);
   const theme = createTheme({
     typography: {
       fontFamily: ["Raleway", "sans-serif"].join(","),
@@ -31,26 +33,28 @@ function App() {
         key: alanKEY,
         onCommand: ({ command, movies }) => {
           if (command === "wakeUp") {
-            setActivePage(1);
+            dispatch(setActivePage(1));
           } else if (command === "popularMovies") {
             setMovies(movies);
-            setActivePage(2);
+            setActiveMovie(-1);
+            dispatch(setActivePage(2));
           } else if (command === "newMovies") {
             setMovies(movies);
-            setActivePage(2);
+            setActiveMovie(-1);
+            dispatch(setActivePage(2));
           } else if (command === "searchMovies") {
             setMovie(movies);
-            setActivePage(3);
-          } else if (command === "highlights") {
+            dispatch(setActivePage(3));
+          } else if (command === "mainPage") {
+            dispatch(setActivePage(1));
+          } else if (command === "highlight") {
             setActiveMovie((prevActiveMovie) => prevActiveMovie + 1);
           }
         },
       });
-      setActivePage(0);
+      dispatch(setActivePage(0));
     }, 800);
-  }, []);
-
-  if (activePage === -1) return <LoadingPage />;
+  }, [dispatch]);
 
   const style = {
     background: `url(${bgCinema})`,
@@ -59,12 +63,13 @@ function App() {
     backgroundRepeat: "no-repeat",
   };
 
+  if (activePage === -1) return <LoadingPage />;
+
   return (
     <ThemeProvider theme={theme}>
+      <NavBar />
       <Fade in style={{ transitionDelay: "300ms" }}>
         <div style={style}>
-          <NavBar />
-
           {activePage === 0 && <HomePage />}
           {activePage === 1 && <Suggestions />}
           {activePage === 2 && (
@@ -75,6 +80,6 @@ function App() {
       </Fade>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
