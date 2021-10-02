@@ -1,4 +1,4 @@
-import { Fade, Box, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { Box, AppBar, Toolbar, Typography } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "../slices/navSlice";
 
