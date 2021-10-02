@@ -20,48 +20,46 @@ const NavBar = () => {
   };
 
   return (
-    <Fade in style={{ transitionDelay: "300ms" }}>
-      <Box sx={{ height: "10vh" }}>
-        <AppBar
-          position="static"
-          color="transparent"
-          style={{ boxShadow: "none" }}
+    <Box sx={{ height: "10vh" }}>
+      <AppBar
+        position="static"
+        color="transparent"
+        style={{ boxShadow: "none" }}
+      >
+        <Toolbar
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
-          <Toolbar
+          <Typography
             style={{
-              display: "flex",
-              justifyContent: "center",
+              fontSize: "1rem",
+              color: "#818CD9",
+              fontWeight: 800,
+              cursor: "pointer",
             }}
+            onClick={handleHome}
           >
-            <Typography
-              style={{
-                fontSize: "1rem",
-                color: "#818CD9",
-                fontWeight: 800,
-                cursor: "pointer",
-              }}
-              onClick={handleHome}
-            >
-              Home
-            </Typography>
-            <Typography style={styleText} onClick={handleSuggestions}>
-              Try saying
-            </Typography>
-            <a
-              href="https://github.com/georrgecb/AIMDb"
-              target="_blank"
-              rel="noreferrer"
-              style={{ textDecoration: "none" }}
-            >
-              <Typography style={styleText}>GitHub Repo </Typography>
-            </a>
-            {/* <a href="" target="_blank" style={{ textDecoration: "none" }}> */}
-            <Typography style={styleText}>AI Script</Typography>
-            {/* </a> */}
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </Fade>
+            Home
+          </Typography>
+          <Typography style={styleText} onClick={handleSuggestions}>
+            Try saying
+          </Typography>
+          <a
+            href="https://github.com/georrgecb/AIMDb"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none" }}
+          >
+            <Typography style={styleText}>GitHub Repo </Typography>
+          </a>
+          {/* <a href="" target="_blank" style={{ textDecoration: "none" }}> */}
+          <Typography style={styleText}>AI Script</Typography>
+          {/* </a> */}
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

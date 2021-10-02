@@ -31,7 +31,7 @@ const SingleMovie = ({
           elevation={10}
           style={{
             padding: "2rem",
-            margin: "1rem 3rem",
+            margin: "1rem",
             background: `url(${bgSingle})`,
             backgroundPosition: "center",
           }}
@@ -72,12 +72,14 @@ const SingleMovie = ({
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: "1rem",
                   justifyContent: "flex-start",
                   marginTop: "2rem",
                 }}
               >
-                <Typography className={classes.movieStats}>
+                <Typography
+                  className={classes.movieStats}
+                  style={{ paddingLeft: 0 }}
+                >
                   Runtime:{" "}
                   <span
                     style={{
@@ -131,10 +133,6 @@ const SingleMovie = ({
                   marginTop: "2rem",
                 }}
               >
-                {/* <Typography style={{ fontWeight: 600, fontSize: "1.2rem" }}>
-                  {" "}
-                  Genres:
-                </Typography> */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
                   {genres.map((genre, index) => (
                     <Typography key={index} className={classes.genre}>
@@ -175,12 +173,13 @@ const SingleMovie = ({
                 position: "relative",
               }}
             >
-              <div style={{ display: "flex", justifyContent: "end" }}>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <img
                   src={`${baseImgUrl}${poster_path}`}
                   alt={`${title} poster`}
                   style={{
-                    height: "30rem",
+                    maxHeight: "30rem",
+                    maxWidth: "70vw",
                     borderRadius: "0.5rem",
                     boxShadow: "0rem 0rem 2rem gray",
                   }}

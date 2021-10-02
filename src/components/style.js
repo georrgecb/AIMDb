@@ -76,7 +76,7 @@ export default makeStyles({
     fontSize: "1.2rem",
     fontWeight: 600,
     borderRight: "0.18rem solid #C04249",
-    paddingRight: "0.5rem",
+    padding: "0 1rem",
   },
   genre: {
     fontSize: "1rem",
@@ -85,7 +85,7 @@ export default makeStyles({
     background: "#F4B943",
     borderRadius: "2rem",
     padding: "0.2rem 0.4rem",
-    // marginRight: "0.5rem",
+    marginRight: "0.2rem",
   },
   vote: {
     position: "absolute",

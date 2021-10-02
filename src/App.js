@@ -51,7 +51,7 @@ const App = () => {
         },
       });
       dispatch(setActivePage(0));
-    }, 800);
+    }, 1000);
   }, [dispatch]);
 
   const style = {
@@ -65,9 +65,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavBar />
       <Fade in style={{ transitionDelay: "300ms" }}>
         <div style={style}>
+          <NavBar />
           {activePage === 0 && <HomePage />}
           {activePage === 1 && <Suggestions />}
           {activePage === 2 && (
