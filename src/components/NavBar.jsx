@@ -54,9 +54,13 @@ const NavBar = () => {
           >
             <Typography style={styleText}>GitHub Repo </Typography>
           </a>
-          {/* <a href="" target="_blank" style={{ textDecoration: "none" }}> */}
-          <Typography style={styleText}>AI Script</Typography>
-          {/* </a> */}
+          <a
+            href="https://codepen.io/georrgecb/pen/PoKQrBO?editors=0010"
+            target="_blank"
+            style={{ textDecoration: "none" }}
+          >
+            <Typography style={styleText}>AI Script</Typography>
+          </a>
         </Toolbar>
       </AppBar>
     </Box>
