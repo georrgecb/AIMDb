@@ -57,6 +57,7 @@ const NavBar = () => {
           <a
             href="https://codepen.io/georrgecb/pen/PoKQrBO?editors=0010"
             target="_blank"
+            rel="noreferrer"
             style={{ textDecoration: "none" }}
           >
             <Typography style={styleText}>AI Script</Typography>
